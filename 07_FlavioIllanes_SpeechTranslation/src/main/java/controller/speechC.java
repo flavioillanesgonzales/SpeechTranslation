@@ -15,7 +15,6 @@ public class speechC implements Serializable {
     private SpeechTranslationService speech = new SpeechTranslationService();
     private String cadena = "Aqui aparecera lo que habla";
     private boolean inab = false;
-    private boolean img = true;
     private SpeechM sp = new SpeechM();
 
     public void grabarTraducir() throws InterruptedException, ExecutionException, IOException {
@@ -32,10 +31,21 @@ public class speechC implements Serializable {
                 case "pt-BR":
                     voice = "AntonioNeural";
                     break;
-//                case "":
-//                    break;
+                case "de-DE":
+                    voice = "KillianNeural";
+                    break;
+                case "it-IT":
+                    voice = "IsabellaNeural";
+                    break;
+                case "ja-JP":
+                    voice = "NanamiNeural";
+                    break;
+                case "vi-VN":
+                    voice = "NamMinhNeural";
+                    break;
+
             }
-            speech.translationWithMicrophoneAsync(sp.getTraduccion(), sp.getTraducir(),voice);
+            speech.translationWithMicrophoneAsync(sp.getTraduccion(), sp.getTraducir(), voice);
         } catch (IOException | InterruptedException | ExecutionException e) {
             System.out.println("Error en traducirMicro: " + e.getMessage());
         }
@@ -43,7 +53,6 @@ public class speechC implements Serializable {
 
     public void parar() throws InterruptedException, ExecutionException {
         try {
-
             inab = false;
             speech.recognizer.stopContinuousRecognitionAsync().get();
         } catch (InterruptedException | ExecutionException e) {
@@ -52,7 +61,7 @@ public class speechC implements Serializable {
 
     }
 
-    public void prueba() {
+    public void traerDato() {
         cadena = speech.cadena;
     }
 
