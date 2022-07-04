@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Speech Text</title>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+    </h:head>
+
+    <h:body>
+
+
+
+        <h:form>
+            <center>
+
+                <h2 style="font-size: 45px;font-weight: 900;color: #3366ff;margin: 20px">
+                    Traducción en tiempo real
+                </h2>
+            </center>
+            <p:splitter id="splitTraducir"  style="height: 300px" styleClass="p-mb-5">
+                <p:splitterPanel styleClass="p-d-flex p-ai-center p-jc-center">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Idioma hablante"/>
+                        <p:selectOneMenu value="#{speechC.sp.traduccion}" >
+                            <f:selectItem itemLabel="Spanish - Peru" itemValue="es-PE" />
+                            <f:selectItem itemLabel="English - EU" itemValue="en-US" />
+                            <f:selectItem itemLabel="Portugues - Brazil" itemValue="pt-BR" />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Idioma a Traducir"/>
+                        <p:selectOneMenu value="#{speechC.sp.traducir}">
+                            <f:selectItem itemLabel="Ingles - EU" itemValue="en-US" />
+                            <f:selectItem itemLabel="Spanish - Peru" itemValue="es-PE" />
+                            <f:selectItem itemLabel="Portugues - Brazil" itemValue="pt-BR" />
+
+                        </p:selectOneMenu>             
+                    </p:panelGrid>
+
+
+
+                </p:splitterPanel>
+                <p:splitterPanel styleClass="p-d-flex p-ai-center p-jc-center" >
+                    <p:outputLabel id="idOutput" value="#{speechC.cadena}"/>
+                    <p:poll interval="1" update="idOutput" listener="#{speechC.prueba()}"/>
+                </p:splitterPanel>
+            </p:splitter>
+            <center>
+                <br></br>
+                <p:graphicImage id="image" value="image/micro.png"  width="50px" height="50px" rendered="#{speechC.inab}" />
+
+                <br></br>
+                <p:commandButton id="btnGrabar" value="Grabar" actionListener="#{speechC.grabarTraducir()}" update="btnPausar btnGrabar splitTraducir image" disabled="#{speechC.inab}"  />
+
+                <p:commandButton id="btnPausar" value="Pausar" actionListener="#{speechC.parar()}" style="background-color: red;color: white" update="btnPausar btnGrabar splitTraducir image" disabled="#{!speechC.inab}"  />
+            </center>
+        </h:form>
+
+    </h:body>
+</html>
